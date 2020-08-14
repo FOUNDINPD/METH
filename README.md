@@ -156,3 +156,17 @@ y<-meffil.get.features("epic")
 head(y)
 write.table(y, file="normalization/EPIC_annotation.txt", col.names= TRUE, row.names = F, quote = F, sep = "\t")
 ```
+####### Liftover annotation
+
+```
+cut -f 4,5 EPIC_annotation.txt > temp
+cut -f 3 EPIC_annotation.txt > temp2
+cut -f 5 EPIC_annotation.txt > temp4
+paste temp temp4 temp2 > prep_for_liftover.bed
+
+module load crossmap #(from here => https://pubmed.ncbi.nlm.nih.gov/24351709/)
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz
+crossmap bed hg19ToHg38.over.chain.gz prep_for_liftover.bed > prep_for_liftover_hg38.bed
+cut -f 6,7,8,9 prep_for_liftover_hg38.bed > EPIC_annotation_hg38.txt 
+```
+
