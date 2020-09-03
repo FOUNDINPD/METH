@@ -45,7 +45,7 @@ library(meffil)
 
 options(mc.cores=10)
 # Read in samplesheet
-samplesheet <- meffil.read.samplesheet(base=".",pattern="METH_FOUNDIN_sample_sheet_v3.csv")
+samplesheet <- meffil.read.samplesheet(base=".",pattern="METH_FOUNDIN_sample_sheet_v4.csv")
 # old one pre-sample switches/bad samples (see below)
 # samplesheet <- meffil.read.samplesheet(base=".",pattern="METH_FOUNDIN_sample_sheet.csv")
 
