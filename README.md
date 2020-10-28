@@ -45,7 +45,7 @@ library(meffil)
 
 options(mc.cores=10)
 # Read in samplesheet
-samplesheet <- meffil.read.samplesheet(base=".",pattern="METH_FOUNDIN_sample_sheet_v4.csv")
+samplesheet <- meffil.read.samplesheet(base=".",pattern="ASSAYS_METH_IDAT_METH_ASSAYS_METH_IDAT_METH_METH_FOUNDIN_sample_sheet_LONI.csv")
 # old one pre-sample switches/bad samples (see below)
 # samplesheet <- meffil.read.samplesheet(base=".",pattern="METH_FOUNDIN_sample_sheet.csv")
 
@@ -79,7 +79,7 @@ qc.summary <- meffil.qc.summary(
 )
 
 # saving the report
-meffil.qc.report(qc.summary, output.file="qc/FINAL_report_FOUNDIN_July2020.html")
+meffil.qc.report(qc.summary, output.file="qc/FINAL_report_FOUNDIN_October2020.html")
 
 # OPTIONAL saving genotypes in matrix...
 snp.betas <- meffil.snp.betas(qc.objects)
@@ -107,11 +107,11 @@ qc.objects <- meffil.remove.samples(qc.objects, outlier$sample.name)
 length(qc.objects)
 save(qc.objects,file="qc.objects.clean.Robj")
 
-# rerun QC
+# (OPTIONAL) rerun QC
 
 qc.summary <- meffil.qc.summary(qc.objects,parameters=qc.parameters,genotypes=genotypes)
 
-meffil.qc.report(qc.summary, output.file="qc/FINAL_report_FOUNDIN_July2020_after_QC.html")
+meffil.qc.report(qc.summary, output.file="qc/FINAL_report_FOUNDIN_October2020_after_QC.html")
 
 # Perform functional normalisation
 # note that this is here done combining day 0 and day 65 
@@ -128,17 +128,18 @@ pc <- 10
 norm.objects <- meffil.normalize.quantiles(qc.objects, number.pcs=pc)
 save(norm.objects,file=paste("norm.obj.pc",pc,".Robj",sep=""))
 
-# Generate normalized probe values
+# Generate normalized probe values (Note takes a while)
 norm.beta <- meffil.normalize.samples(norm.objects, cpglist.remove=qc.summary$bad.cpgs$name)
 
 # Generate normalization report
 pcs <- meffil.methylation.pcs(norm.beta,probe.range=20000)
 norm.summary <- meffil.normalization.summary(norm.objects, pcs=pcs)
-meffil.normalization.report(norm.summary, output.file="normalization/FINAL_report.html")
+meffil.normalization.report(norm.summary, output.file="normalization/FINAL_report_october2020.html")
 
 # saving data in normalized matrix
 meth <- meffil.normalize.samples(norm.objects)
-write.table(meth, file="normalization/FINAL_normalized_FOUNDIN.txt", col.names= TRUE, row.names = TRUE, quote = F, sep = "\t")
+write.table(meth, file="normalization/FINAL_normalized_FOUNDIN_october2020.txt", col.names= TRUE, row.names = TRUE, quote = F, sep = "\t")
+write.table(pcs, file="normalization/pcs.txt", col.names= TRUE, row.names = TRUE, quote = F, sep = "\t")
 
 
 # ----->  samples
