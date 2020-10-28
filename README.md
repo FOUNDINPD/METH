@@ -1,7 +1,7 @@
 # METHYLATION CODE FOUNDIN
 
 ##### Cornelis
-##### July 2020
+##### October 2020
 
 ##### using code of => https://github.com/perishky/meffil => big thank you
 
