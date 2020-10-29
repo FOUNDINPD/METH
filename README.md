@@ -1,4 +1,4 @@
-# METHYLATION CODE FOUNDIN
+# Methylation code for FOUNDIN-PD
 
 ##### Cornelis
 ##### October 2020
